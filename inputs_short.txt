@@ -1,0 +1,10 @@
+/media/Data/Documents/cs273a_data/ftp.genboree.org/EpigenomeAtlas/Current-Release/sample-experiment/H1_Cell_Line/Histone_H2AK5ac/UCSD.H1.H2AK5ac.SAK201_chr1.wig
+/media/Data/Documents/cs273a_data/ftp.genboree.org/EpigenomeAtlas/Current-Release/sample-experiment/H1_Cell_Line/Histone_H2BK120ac/UCSD.H1.H2BK120ac.AK146_chr1.wig
+/media/Data/Documents/cs273a_data/ftp.genboree.org/EpigenomeAtlas/Current-Release/sample-experiment/H1_Cell_Line/Histone_H2BK12ac/UCSD.H1.H2BK12ac.SAK203_chr1.wig
+/media/Data/Documents/cs273a_data/ftp.genboree.org/EpigenomeAtlas/Current-Release/sample-experiment/H1_Cell_Line/Histone_H2BK15ac/UCSD.H1.H2BK15ac.SAK204_chr1.wig
+/media/Data/Documents/cs273a_data/ftp.genboree.org/EpigenomeAtlas/Current-Release/sample-experiment/H1_Cell_Line/Histone_H2BK20ac/UCSD.H1.H2BK20ac.SAK205_chr1.wig
+/media/Data/Documents/cs273a_data/ftp.genboree.org/EpigenomeAtlas/Current-Release/sample-experiment/H1_Cell_Line/Histone_H2BK5ac/UCSD.H1.H2BK5ac.SAK202_chr1.wig
+/media/Data/Documents/cs273a_data/ftp.genboree.org/EpigenomeAtlas/Current-Release/sample-experiment/H1_Cell_Line/Histone_H3K18ac/UCSD.H1.H3K18ac.AK52_chr1.wig
+/media/Data/Documents/cs273a_data/ftp.genboree.org/EpigenomeAtlas/Current-Release/sample-experiment/H1_Cell_Line/Histone_H3K23ac/UCSD.H1.H3K23ac.AK53_chr1.wig
+/media/Data/Documents/cs273a_data/ftp.genboree.org/EpigenomeAtlas/Current-Release/sample-experiment/H1_Cell_Line/Histone_H3K23me2/UCSD.H1.H3K23me2.SAK210_chr1.wig
+/media/Data/Documents/cs273a_data/ftp.genboree.org/EpigenomeAtlas/Current-Release/sample-experiment/H1_Cell_Line/Histone_H3K27ac/UCSD.H1.H3K27ac.LL313_chr1.wig
