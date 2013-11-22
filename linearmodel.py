@@ -242,7 +242,7 @@ class Regression:
         print "maxvec: ",max([abs(x) for x in self.Vector])," constant: ",self.Constant
 
     def Test(self,Input,Output):
-        test = self.Predict(Input)#np.dot(self.Vector,Input)+self.Constant
+        test = round(self.Predict(Input))#np.dot(self.Vector,Input)+self.Constant
 # round((np.dot(self.Vector,Input)+self.Constant)/(100000.0*len(Input)))
         return (test-Output)**2
     def Predict(self,Input):
@@ -294,8 +294,8 @@ def Train(regions,target,regression,windowsize = (20,20),numsamples=-1):
         if(count>numsamples and numsamples != -1):
             break
         count +=1
-        if(count %1000 == 0):
-            print count,len(badset)
+#        if(count %1000 == 0):
+#            print count,len(badset)
         if(target.Position-windowsize[0]<0):
             continue
         flag = False
@@ -352,7 +352,7 @@ def Train(regions,target,regression,windowsize = (20,20),numsamples=-1):
     return er
 
 
-def IterateTrain(regions,target,regression,windowsize=(20,20),numiters=100,numsamples=100000):
+def IterateTrain(regions,target,regression,windowsize=(20,20),numiters=200,numsamples=100000):
 
     for i in range(numiters):
         print "running iteration: "+str(i)+" of "+str(numiters)
@@ -371,7 +371,7 @@ def IterateTrain(regions,target,regression,windowsize=(20,20),numiters=100,numsa
 #        target.Reset()
 
     er = Test(regions,target,regression,windowsize,numsamples)
-    print "er: ",e
+    print "er: ",er
     return er
 
 
