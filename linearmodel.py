@@ -4,9 +4,10 @@ import numpy as np
 import random
 from math import sqrt
 from thresholds import findthresh
-
-alphastart = 0.01
-threshold = 0.5
+from copy import deepcopy
+alphastart = 0.000001
+#alphastart = 0.00000001
+threshold = -0.25
 
 class Window:
     
@@ -199,21 +200,26 @@ class Target:
 class Regression:
     
     def __init__(self,n,k):
-        self.Vector = np.array([random.uniform(-1.0/(n*k),1.0/(n*k)) for x in range(n*k)])
+        self.Vector = np.array([0.0]*n*k)#[random.uniform(-1.0,1.0) for x in range(n*k)])
         self.Constant = 0.0#random.random()
         self.alpha = alphastart
         self.n = n
         self.k = k
+        self.Corrections = np.array([0.0]*n*k)
+        self.ConstCorrect = 0.0
 
     def Update(self,Input,Output):
         test = self.Predict(Input)#np.dot(self.Vector,Input)+self.Constant
 #round((np.dot(self.Vector,Input)+self.Constant)/(100000*len(Input)))
         er = (test - Output)**2
+
         #gradient descent... assuming I can calculate derivatives properly
         for i in range(len(self.Vector)):
-            self.Vector[i] -= (self.alpha/2.0 *Input[i]*(test-Output))/len(Input)
+            self.Corrections[i] -= (self.alpha *Input[i]*(test-Output))/len(Input)
+#            self.Vector[i] -= (self.alpha*2.0 *(Input[i]>0) * (test-Output))/len(Input)
 
-        self.Constant -= self.alpha/2.0*(test-Output)/len(Input)
+        
+        self.ConstCorrect -= self.alpha*(test-Output)/len(Input)
         
 
         #print test,Output,self.Vector,Input,self.Constant
@@ -224,8 +230,17 @@ class Regression:
 
         if(str(test) == "nan"):
             exit()
-        return er
+        return (round(test)-Output)**2
     
+    def ApplyCorrections(self):
+        self.Vector+=self.Corrections
+
+        self.Constant -= self.ConstCorrect
+        self.ConstCorrect = 0.0
+        for i in range(len(self.Corrections)):
+            self.Corrections[i] = 0.0
+        print "maxvec: ",max([abs(x) for x in self.Vector])," constant: ",self.Constant
+
     def Test(self,Input,Output):
         test = self.Predict(Input)#np.dot(self.Vector,Input)+self.Constant
 # round((np.dot(self.Vector,Input)+self.Constant)/(100000.0*len(Input)))
@@ -242,8 +257,8 @@ def Test(regions,target,regression,windowsize = (20,20),numsamples=-1):
         if(count>numsamples and numsamples != -1):
             break
         count +=1
-        if(count %1000 == 0):
-            print count
+#        if(count %1000 == 0):
+#            print count
         if(target.Position-windowsize[0]<0):
             continue
         flag = False
@@ -274,6 +289,7 @@ def Train(regions,target,regression,windowsize = (20,20),numsamples=-1):
     count = 0
     badset = []
     tempset = []
+    ones = 0
     while(target.Update() != -1):
         if(count>numsamples and numsamples != -1):
             break
@@ -311,43 +327,51 @@ def Train(regions,target,regression,windowsize = (20,20),numsamples=-1):
 #        if(count %1000 == 0):
 #            print "predict: ",regression.Predict(vec)," val: ",target.Value," er: ",regression.Test(vec,target.Value)
 
-
+        if(target.Value == 1):
+            ones += 1
         z = regression.Update(vec,target.Value)
-
-        if(z>500):
-            badset.append((vec,target.Value))
+        
+        badthresh = 200000.25
+        if(z>badthresh):
+            badset.append((deepcopy(vec),deepcopy(target.Value),z))
 
         tempset = []
-        if(count % 100 == 0):
+        if(count % 10 == 0):
             for pair in badset:
                 z = regression.Update(pair[0],pair[1])
-                if(z>500):
+                if(z>badthresh):
                     tempset.append(pair)
+                else:
+                    print "how",z,pair[2]
             badset = tempset
         
         er += z
             
-#    print "er: ",er/numsamples
+    print "er: ",sqrt(er/numsamples)
+    print "numones: ",ones
     return er
 
 
-def IterateTrain(regions,target,regression,windowsize=(20,20),numiters=50,numsamples=100000):
+def IterateTrain(regions,target,regression,windowsize=(20,20),numiters=100,numsamples=100000):
 
     for i in range(numiters):
         print "running iteration: "+str(i)+" of "+str(numiters)
 
-        str(Train(regions,target,regression,windowsize,numsamples))
-        regression.alpha -= alphastart*1.0/(float(numiters)+20.0)
+        Train(regions,target,regression,windowsize,numsamples)
+        regression.ApplyCorrections()
+        regression.alpha -= alphastart*1.0/(float(numiters)+100.0)
+#        regression.alpha*=0.05
+        print "alpha: ",regression.alpha
         for region in regions:
             region.Reset()
         target.Reset()
 
-        for region in regions:
-            region.Reset()
-        target.Reset()
+#        for region in regions:
+#            region.Reset()
+#        target.Reset()
 
     er = Test(regions,target,regression,windowsize,numsamples)
-    print "er: ",er
+    print "er: ",e
     return er
 
 
@@ -373,7 +397,7 @@ def Initialize(inputfilesfile,targetfile,windowsize = (20,20)):
 
 
 def main(args):
-    windowsize = (100,100)
+    windowsize = (20,20)
     regions,target,regression = Initialize(args[1],args[2],windowsize)
 
     er = IterateTrain(regions,target,regression,windowsize)
