@@ -1,4 +1,4 @@
-
+import numpy as np
 
 def makevector(filename,chromname):
     fp = open(filename)
@@ -17,8 +17,9 @@ def makevector(filename,chromname):
 
 
 
-def GetVectors(filenames,chromname):
-    return [makevector(filename,chromname) for filenam in filenames]
+def GetMatrix(filenames,chromname):
+    return np.transpose(np.array([makevector(filename,chromname) for filename in filenames]))
+
 
 
             
