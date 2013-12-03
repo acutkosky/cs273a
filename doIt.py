@@ -16,6 +16,11 @@ def main():
     fileList = spectralClustering.runClustering(contents, fileList, numClusters)
 
     for clusterFiles in fileList:
+        print "Cluster files:"
+        print clusterFiles
+        if len(clusterFiles) <= 1:
+            continue
+
         training = clusterFiles[:]
         training = ["transfers/TRANS" + x for x in training]
         test = choice(training)

@@ -19,8 +19,16 @@ def makevector(filename,chromname):
 
 
 def GetMatrix(filenames,chromname):
-    print filenames
     temp = [makevector(filename,chromname) for filename in filenames]
     m = max([len(x) for x in temp])
     temp = [x + [0]*(m-len(x)) for x in temp]
     return np.transpose(np.array(temp))
+
+matrix = GetMatrix(['transfers/TRANSH3K27ac.wip', 'transfers/TRANSH3K4me2.wip', 'transfers/TRANSH4K8ac.wip'],"chr1")
+f = open("tempMatrix.txt", "w")
+for row in matrix:
+    f.write(row)
+            
+
+    
+        
