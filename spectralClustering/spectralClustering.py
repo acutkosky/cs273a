@@ -17,15 +17,7 @@ def readFile(f, delim=" "):
     return (retArray, fileList)
 
 
-def runClustering():
-    if len(sys.argv) != 3:
-        print "Usage: %s <csv file containing correlation matrix> <num. clusters>\n" %(sys.argv[0])
-        sys.exit(-1)
-
-    fileName = sys.argv[1]
-    numClusters = int(sys.argv[2])
-    (contents, fileList) = readFile(fileName, "\t")
-
+def runClustering(contents, fileList, numClusters):
     data = np.array(contents)
     labels = spectral_clustering(data, numClusters)
 #    print labels
@@ -39,7 +31,16 @@ def runClustering():
     return returnList
 
 
-fileList = runClustering()
-for l in fileList:
-    print l
+def main():
+    if len(sys.argv) != 3:
+        print "Usage: %s <csv file containing correlation matrix> <num. clusters>\n" %(sys.argv[0])
+        sys.exit(-1)
+    fileName = sys.argv[1]
+    numClusters = int(sys.argv[2])
+    (contents, fileList) = readFile(fileName, "\t")
 
+    fileList = runClustering(contents, fileList, numClusters)
+    for l in fileList:
+        print l
+
+main()
