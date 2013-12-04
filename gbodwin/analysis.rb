@@ -14,30 +14,32 @@ class Hash
 end
 
 corrMatr = Hash.new(nil)
+puts ARGV[0]
+h1fname = Dir.entries("ser1").select{|e| e.include? "SER"}[ARGV[0].to_i]
 
-Dir.entries("ser1").each do |h1fname|
-    if h1fname.include? "SER"
+
+    
         h1fname.slice! "SER"
         puts "Handling #{h1fname}"
         corrMatr[h1fname] = Hash.new(nil)
         h1Hash = Marshal::load(File.new("ser1/SER" + h1fname, "r").read)[h1fname]
         h1Hash.normalize
-        puts h1Hash.keys.size
+        
         Dir.entries("IMR90CellLine/ser1").each do |imrfname|
             if imrfname.include? "SER"
                 imrfname.slice! "SER"
                 puts "\tHandling #{imrfname}"
                 imrHash = Marshal::load(File.new("IMR90CellLine/ser1/SER" + imrfname).read)
                 imrHash.normalize
-                puts imrHash.keys.size
+                
                 corrMatr[h1fname][imrfname] = h1Hash.correlationWith imrHash
                 puts corrMatr[h1fname][imrfname]
             end
         end
-    end
-end
+    
 
-File.new("CorrMatr", "w").write(Marshal::dump(corrMatr))
+
+  File.new("CorrMatr#{ARGV[0]}", "w").write(Marshal::dump(corrMatr))
 
 =begin
 cm = Marshal::load(File.new("CorrMatr", "r").read)
