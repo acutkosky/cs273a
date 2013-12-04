@@ -24,6 +24,51 @@ def makevector(filename,chromname):
             vec.append(0)
             pos+=1000
         vec.append(int(data[2]))
+        pos+=1000
+#        if lineNum % 10000 == 0:
+#            print "Line %d" %(lineNum)
+    print "done"
+    fp.close()
+    return vec
+
+
+
+def makevectors_fp(file1,file2):
+
+    fp1 = open(file1)
+    fp2 = open(file2)
+    vec1 = []
+    vec2 = []
+    pos1 = 1
+    pos2 = 1
+    lineNum = 0
+    prevChr = ""
+    curChr = ""
+    
+    while(True):
+        line1 = fp1.readline()
+        line2 = fp2.readline()
+        lineNum += 1
+        
+        data1 = line1.split()
+        data2 = line2.split()
+        if(data1[0] != data2[0]):
+            #time to pad a vector
+            data1,data2 = Pad(data1,data2)
+
+
+        if(data[0] != chromname):
+            return vec
+        if (curChr != data[0]):
+            if(curChr != ""):
+                return vec
+            curChr = data[0]
+            print "Entering chromosome %s" %(curChr)
+
+        while(int(data[1])!=pos):
+            vec.append(0)
+            pos+=1000
+        vec.append(int(data[2]))
 #        if lineNum % 10000 == 0:
 #            print "Line %d" %(lineNum)
     print "done"
