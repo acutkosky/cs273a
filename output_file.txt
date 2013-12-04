@@ -1,0 +1,62 @@
+Cluster files:
+['H3K27me3.wip', 'H3K9ac.wip', 'H3K56ac.wip', 'H3K9me3.wip', 'H3K23me2.wip', 'H3K79me2.wip']
+Predicting H3K23me2
+From:
+H3K27me3
+H3K9ac
+H3K56ac
+H3K9me3
+H3K79me2
+Linear regression R^2 score: 0.561135
+Linear regression RMS error: 47.415686
+Linear regression coefficients:
+[ 0.1398238   0.23525055  0.47321322  0.0644093   0.31058484] 33.4203317881
+Cluster files:
+['H2A.Z.wip', 'H2BK15ac.wip', 'H3K18ac.wip', 'H2AK5ac.wip', 'H2BK20ac.wip', 'H3K23ac.wip', 'H4K91ac.wip', 'H2BK120ac.wip', 'H3K4ac.wip', 'H2BK12ac.wip', 'H3K14ac.wip']
+Predicting H4K91ac
+From:
+H2A.Z
+H2BK15ac
+H3K18ac
+H2AK5ac
+H2BK20ac
+H3K23ac
+H2BK120ac
+H3K4ac
+H2BK12ac
+H3K14ac
+Linear regression R^2 score: 0.834831
+Linear regression RMS error: 38.935722
+Linear regression coefficients:
+[-0.08555987  0.04224826  0.30660155  0.14207714  0.09993307 -0.08755021
+  0.37018674  0.30653058  0.04945284  0.09621078] -8.38136976009
+Cluster files:
+['H3K27ac.wip', 'H4K5ac.wip']
+Predicting H4K5ac
+From:
+H3K27ac
+Linear regression R^2 score: 0.786778
+Linear regression RMS error: 44.872270
+Linear regression coefficients:
+[ 1.41574956] 18.4649605282
+Cluster files:
+['H3K4me3.wip', 'H3K4me2.wip']
+Predicting H3K4me3
+From:
+H3K4me2
+Linear regression R^2 score: 0.509626
+Linear regression RMS error: 92.934456
+Linear regression coefficients:
+[ 0.44145384] -3.64892083101
+Cluster files:
+['H4K8ac.wip', 'H3K36me3.wip', 'H2BK5ac.wip', 'H3K79me1.wip', 'H4K20me1.wip']
+Predicting H2BK5ac
+From:
+H4K8ac
+H3K36me3
+H3K79me1
+H4K20me1
+Linear regression R^2 score: 0.624296
+Linear regression RMS error: 34.062739
+Linear regression coefficients:
+[ 0.43582713  0.02377916  0.28680517  0.10601449] 8.49567283299
