@@ -7,14 +7,25 @@ def makevector(filename,chromname="all"):
 
     vec = []
     pos = 1
+    lineNum = 0
+    prevChr = ""
+    curChr = ""
     for line in fp:
+        lineNum += 1
         data = line.split()
         if(data[0] != chromname and chromname != "all"):
             continue
+        if (curChr != data[0]):
+            pos = 1
+            curChr = data[0]
+            print "Entering chromosome %s" %(curChr)
+
         while(int(data[1])!=pos):
             vec.append(0)
             pos+=1000
         vec.append(int(data[2]))
+        if lineNum % 10000 == 0:
+            print "Line %d" %(lineNum)
     print "done"
     return vec
 
