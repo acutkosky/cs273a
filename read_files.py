@@ -74,7 +74,7 @@ def getallvec(file):
 
 
 def GetMatrix(filenames,chromname):
-    print filenames
+#    print filenames
     temp = [makevector(filename,chromname) for filename in filenames]
     m = max([len(x) for x in temp])
     temp = [x + [0]*(m-len(x)) for x in temp]
