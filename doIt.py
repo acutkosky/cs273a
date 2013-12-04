@@ -21,8 +21,9 @@ def main():
         if len(clusterFiles) <= 1:
             continue
 
+        pref = "transfers/TRANS"
         training = clusterFiles[:]
-        training = ["transfers/TRANS" + x for x in training]
+        training = [pref + x for x in training]
         test = choice(training)
         training.remove(test)
         X = read_files.GetMatrix(training, "chr1")
@@ -37,7 +38,9 @@ def main():
 
         clf = linearRegression.linearRegression(X,Y)
         score = clf.score(X,Y)
+        print "Predicting "+test[len(pref):-len(".wip")]
         print "Linear regression R^2 score: %f" %(score)
+        print "Linear regression RMS error: %f" %(read_files.RMSerror(clf,X,Y))
         print "Linear regression coefficients:"
         print clf.coef_
 
