@@ -21,7 +21,7 @@ def main():
         if len(clusterFiles) <= 1:
             continue
 
-        pref = "transfers/TRANS"
+        pref = "H1NonBinTSVs/TRANS2"
         training = clusterFiles[:]
         training = [pref + x for x in training]
         test = choice(training)
