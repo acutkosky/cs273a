@@ -1,0 +1,17 @@
+
+
+doIt.py
+
+Takes as input a correlation matrix and a desired number of clusters.
+Clusters the correlation matrix using spectral clustering.
+For each cluster it identifies the marker that is best predicted (scored by least squares) from the other markers in the cluster via linear regression.
+Outputs clusters, and best linear regression data for each clusters.
+
+testmodel.py
+
+Tests a regression obtained from doIt.py on chromosome 1 of the IMR90 cell line (or other cell lines/chromosomes if desired).
+Outputs the R^2 correlation score.
+This is given by
+1- v/u
+where v is the sum of squared errors, u is the sum of squared errors if the regression always were to guess the average of the data.
+So a score of 1.0 is perfect, a score of 0.0 is only as good as always guessing the average.
